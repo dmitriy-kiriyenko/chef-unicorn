@@ -60,7 +60,9 @@ node['unicorn']['installs'].each do |install|
   end
 
   # Start 'er up.
-  service install['service'] do
-    action :start
+  if install['run_service']
+    service install['service'] do
+      action :start
+    end
   end
 end
