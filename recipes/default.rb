@@ -7,10 +7,10 @@ node['unicorn']['installs'].each do |install|
   # Apply the defaults for each unicorn install
   install['config'] ||= {}
   %w(rack_env user group pid service run_service command).each do |k|
-    install[k] ||= node['unicorn'][k]
+    install[k] = node['unicorn'][k] unless install.key?(k)
   end
   %w(generate path stderr_path stdout_path listen worker_timeout preload_app worker_processes before_exec before_fork after_fork).each do |k|
-    install['config'][k] ||= node['unicorn']['config'][k]
+    install['config'][k] = node['unicorn']['config'][k] unless install['config'].key?(k)
   end
 
   install['config']['working_directory'] ||= install['app_root']
