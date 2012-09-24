@@ -6,12 +6,14 @@ node['unicorn']['installs'].each do |install|
 
   # Apply the defaults for each unicorn install
   install['config'] ||= {}
-  %w(rack_env user group pid service command).each do |k|
+  %w(rack_env user group pid service run_service command).each do |k|
     install[k] ||= node['unicorn'][k]
   end
-  %w(generate path stderr_path stdout_path listen working_directory worker_timeout preload_app worker_processes before_exec before_fork after_fork).each do |k|
+  %w(generate path stderr_path stdout_path listen worker_timeout preload_app worker_processes before_exec before_fork after_fork).each do |k|
     install['config'][k] ||= node['unicorn']['config'][k]
   end
+
+  install['config']['working_directory'] ||= install['app_root']
 
   # Create the init.d script
   template "/etc/init.d/#{install['service']}" do
@@ -34,6 +36,14 @@ node['unicorn']['installs'].each do |install|
   end
 
   # Create the install if necessary
+  directory File.dirname(install['config']['path']) do
+    only_if { install['config']['generate'] }
+    owner install['config']['user']
+    group install['config']['group']
+    group 700
+    recursive true
+  end
+
   template install['config']['path'] do
     only_if   { install['config']['generate'] }
     source    'config.rb.erb'
@@ -60,9 +70,8 @@ node['unicorn']['installs'].each do |install|
   end
 
   # Start 'er up.
-  if install['run_service']
-    service install['service'] do
-      action :start
-    end
+  service install['service'] do
+    only_if { install['run_service'] }
+    action :start
   end
 end
