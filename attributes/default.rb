@@ -11,8 +11,6 @@ default['unicorn']['config']['worker_processes']  = [node['cpu']['total'].to_i *
 default['unicorn']['config']['before_exec']       = nil
 default['unicorn']['config']['before_fork']       = nil
 default['unicorn']['config']['after_fork']        = nil
-default['unicorn']['config']['user']              = 'deploy'
-default['unicorn']['config']['group']             = 'deploy'
 
 default['unicorn']['rack_env']     = 'production'
 default['unicorn']['user']         = 'root'

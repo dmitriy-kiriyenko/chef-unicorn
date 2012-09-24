@@ -40,7 +40,7 @@ node['unicorn']['installs'].each do |install|
     only_if { install['config']['generate'] }
     owner install['config']['user']
     group install['config']['group']
-    group 700
+    mode 700
     recursive true
   end
 
