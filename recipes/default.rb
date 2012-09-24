@@ -40,7 +40,7 @@ node['unicorn']['installs'].each do |install|
     only_if { install['config']['generate'] }
     owner install['user']
     group install['group']
-    mode 755
+    mode '775'
     recursive true
   end
 
@@ -65,7 +65,7 @@ node['unicorn']['installs'].each do |install|
       :stderr_path       => install['config']['stderr_path'],
       :stdout_path       => install['config']['stdout_path']
     )
-    mode '755'
+    mode '775'
     notifies :restart, resources(:service => install['service']), :delayed
   end
 
