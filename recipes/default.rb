@@ -38,9 +38,9 @@ node['unicorn']['installs'].each do |install|
   # Create the install if necessary
   directory File.dirname(install['config']['path']) do
     only_if { install['config']['generate'] }
-    owner install['config']['user']
-    group install['config']['group']
-    mode 700
+    owner install['user']
+    group install['group']
+    mode 755
     recursive true
   end
 
