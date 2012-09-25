@@ -37,7 +37,11 @@ oldsig () {
 }
 
 start() {
-  su -l -c '<%= @command %>' <%= @user %>
+  if [`whoami` == '<%= @user %>']
+    <%= @command %>
+  else
+    su -l -c '<%= @command %>' <%= @user %>
+  fi
 }
 
 case $1 in
