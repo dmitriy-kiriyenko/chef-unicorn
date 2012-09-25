@@ -37,7 +37,7 @@ oldsig () {
 }
 
 start() {
-  if [`whoami` == '<%= @user %>']
+  if [`whoami` == '<%= @user %>']; then
     <%= @command %>
   else
     su -l -c '<%= @command %>' <%= @user %>
