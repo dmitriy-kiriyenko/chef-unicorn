@@ -1,7 +1,7 @@
 default['unicorn']['installs'] = []
 
 default['unicorn']['config']['generate']          = true
-default['unicorn']['config']['path']              = "etc/unicorn/#{node['unicorn']['rack_env']}.rb"
+default['unicorn']['config']['path']              = "/etc/unicorn/#{node['unicorn']['rack_env']}.rb"
 default['unicorn']['config']['stderr_path']       = "#{node['unicorn']['app_root']}/log/unicorn.log"
 default['unicorn']['config']['stdout_path']       = "#{node['unicorn']['app_root']}/log/unicorn.log"
 default['unicorn']['config']['listen']            = [['8080', '{ :tcp_nodelay => true, :tries => 5 }']]
