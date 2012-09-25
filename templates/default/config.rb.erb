@@ -3,7 +3,6 @@
 # Managed by Chef - Local Changes will be obliterated
 ##
 
-user "<%= @user %>"<%= @group ? %Q(, "#{@group}") : '' %>
 timeout <%= @worker_timeout %>
 preload_app <%= @preload_app %>
 worker_processes <%= @worker_processes %>
